@@ -1,3 +1,4 @@
+import keys
 import socket
 import threading
 import signal
@@ -6,7 +7,7 @@ from colorama import Fore
 
 sys.setrecursionlimit(100000)
 
-PORT = 5050
+PORT = 1948
 HEADER = 64
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "DISCONNECTED"
@@ -23,6 +24,7 @@ USERNAME = ""
 PASSWORD = ""
 
 msg_list = []
+
 
 def send(msg):
     if msg == "!exit":
@@ -42,7 +44,7 @@ def login(i=0):
     client.send(credentials.encode(FORMAT))
     cred_response = client.recv(HEADER).decode(FORMAT)
     if cred_response != LOGIN_SUCCESSFUL:
-        if i >= 2:
+        if i > 2:
             print(f"{Fore.RED}[LOGIN FAILED] Too many failed login attempts{Fore.WHITE}")
             print(f"{Fore.RED}Disconnecting...{Fore.WHITE}")
             client.send(DISCONNECT_MESSAGE.encode(FORMAT))

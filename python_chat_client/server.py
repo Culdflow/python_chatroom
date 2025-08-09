@@ -14,8 +14,7 @@ sys.setrecursionlimit(100000)
 public_key = 0
 private_key = 0
 
-PORT = 5050
-SERVER = "192.168.1.29"
+SERVER = "0.0.0.0"
 HEADER = 64
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "DISCONNECTED111"
@@ -107,7 +106,6 @@ def handle_client(conn, addr):
     conn.close()
     return 0
 
-#this will be removed with UI
 def take_input():
     while True:
         message = input()
@@ -155,6 +153,12 @@ def print_messages():
                 print(f"{fore}[{msg_list[i][0]}]   {Fore.WHITE}{msg_list[i][1]}")
     private_msg_list = msg_list.copy()
 
+def	create_server():
+	PORT = input(f"{Fore.GREEN}Server Port:{Fore.WHITE}  ")
+	PORT = int(PORT)
+	ADDR = (SERVER, PORT)
+	start(ADDR)
+
 #Needs to be in main but also not very significant
 def exit_gracefully(signum, frame):
     print('\r', end ='')
@@ -165,6 +169,9 @@ def exit_gracefully(signum, frame):
 if __name__ == '__main__':
     original_sigint = signal.getsignal(signal.SIGINT)
     signal.signal(signal.SIGINT, exit_gracefully)
+
+create_server()
+
 
 #create_keys()
 #print(f"{Fore.GREEN}[STARTING] Server is starting...{Fore.WHITE}")

@@ -7,7 +7,7 @@ KEYS_PATH = "keys/public.pem"
 
 
 #generating or importing keys if already present
-def create_keys():#This should go in its own script
+def create_keys():
     if os.path.isfile(KEYS_PATH):
         print(f"{Fore.GREEN}[LOADING KEYS]...{Fore.WHITE}")
         with open("serverKeys/public.pem", "rb") as f:
@@ -28,7 +28,7 @@ def create_keys():#This should go in its own script
     return (public_key, private_key)
 
 #creates symmetric key
-def create_sym_keys():#should go in the keys script
+def create_sym_keys():
     sym_keys = Fernet.generate_key()
     return sym_keys
 
